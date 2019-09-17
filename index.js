@@ -43,11 +43,16 @@ function runGame() {
 	let drunk = drunkRoll(diceRoller(5,1));
 	console.log("Drunk Multipler: " + drunk);
 	// Landing Roll
-	let landingRollVar = landingRoll((diceRoller(12,1) * drunk), (diceRoller(12,1) *drunk));
+	let landingRollVar = landingRoll((diceRoller(12,1) * drunk), "first");
 	if (!landingRollVar){
-		runGame();
-		return;
+			landingRollVar = landingRoll((diceRoller(12,1) * drunk), "second");
+		if (!landingRollVar){
+			rungame();
+			return;
+		}
 	}
+
+	alert("Your troops have established a stable beachhead and have moved into position to assault the city of Port Arthur, Home Stretch!")
 	let landRollVar = landRoll((diceRoller(20,1) * drunk));
 	if (!landRollVar){
 		runGame();
@@ -163,21 +168,29 @@ function drunkRoll (roll){
 
 	return rollMultiplierTwo;
 }
-
-	function landingRoll (roll){
+	// this function defines the "landing" stage of the battle
+	function landingRoll (roll, attempt){
 	console.log("landing Roll: " + roll);
 	if (roll >= 8){
 		alert("Your troops have landed successfully and are establishing a foothold!");
 		return true;
 	}
 	else {
-		alert("The Russians have repulsed your first landing, You've got one more chance!")
+		let alertMes = "The Russians have repulsed your " + attempt + " landing.";
+		if (attempt === "first"){
+			alertMes += " You've got one more chance!"
+		}
+
+		if (attempt === "second"){
+			alertMes += "You have failed and will be returned to the beginning"
+		}
+		alert(alertMes);
 		return false;
 	}
 
 	// else if add rollOne and rollTwo
 }	
-
+	// this is the last stage of the game, the "land battle"
 	function landRoll (roll){
 		console.log("Land Battle Roll: " + roll);
 		if (roll >= 12){

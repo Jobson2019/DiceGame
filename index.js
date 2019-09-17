@@ -10,17 +10,38 @@
 
 function runGame() {
 	alert("Welcome to the Siege of Port Arthur, You are in command of the Japanese Forces attempting to dislodge the Russians from the City of Port Arthur. A lethal enemy naval taskforce patrols the peninsula, they outgun and outnumber you significantly. All you can rest your hopes on is decisive action- let's hope the weather cooperates!")
+	// This will be the Weather Multiplier roll, this will assign a value multiplied by the two upcoming naval rolls
 	alert("Let's see how good the weather is!")
 	let weather = weatherRoll(diceRoller(4,1))
 	console.log("Weather Multiplier: " + weather)
-	// First, the player will recieve this series of alerts
+	// First, the player will recieve this series of alerts, this begins naval roll 1/2
 	alert("The Russian fleet is moving into battle formations ahead of your landing group");
 	alert("Your fleet is smaller, and cannot hope to match the firepower of the Russian battleships");
 	alert("Your only hope is to attack now, before the Russians can maneuver their ships into position");
-	console.log("Naval Alert Recieved"); 
-	// Now the function 
-	let navalRollOnevar = navalRollOne((diceRoller(6,2) * weather));
-	console.log("First Naval Roll: " + navalRollOnevar);
+	console.log("Naval Alert One Recieved"); 
+	// Now to call the function 
+	let navalRollOneVar = navalRollOne((diceRoller(6,2) * weather));
+	if (!navalRollOneVar){
+		runGame();
+		return;
+	}
+	console.log("First Naval Roll: " + navalRollOneVar);
+
+	// Second Naval Roll 1/2
+	alert("The remainder of the Russian fleet is retreating towards Port Arthur to lick its wounds, but they can still put up a fight, you must attack before they regroup!")
+	
+	let navalRollTwoVar = navalRollTwo((diceRoller(8,1) * weather));
+	if (!navalRollTwoVar){
+		runGame();
+		return;
+	}
+	console.log("Second Naval Roll: " + navalRollTwoVar)
+
+	// How Drunk is the Russian Army? multiplier
+	let drunk = drunkRoll(diceRoller(5,1))
+	console.log("Drunk Multipler: " + drunk)
+
+
 }
 runGame();
 
@@ -76,21 +97,84 @@ function weatherRoll(roll){
 // here is the roll function, calling the weatherRoll multiplier
 
 function navalRollOne (roll){
-	console.log("First naval Result: " + roll);
+	console.log("First Naval Result: " + roll);
 if (roll >= 6){
 	alert("Your fleet was victorious, the Russian fleet is crippled but not destroyed!")
 	return true;
 	
 } 
-if (roll < 6){
-	alert("Your fleet was destroyed, you have lost the battle!")
+	else {
+	alert("Your fleet was destroyed, you have lost the battle! You will be returned to the beginning");
 	return false;
 }
 }
 
 
+function navalRollTwo (roll){
+	console.log("Second Naval Result: " + roll);
+	if (roll >= 4){
+		alert("You have destroyed the Russian Pacific Fleet, you may now begin landing your troops!");
+		return true;
+	}
+	else {
+		alert("The remaining Russian ships have crippled your fleet, you have lost the battle! You will be returned to the beginning");
+		return false;
+		
+	}
+}
+// This function determines how hindered the Russian Army is by their Achilles' Heel, grain alcohol.
+// This multiplier will be applied to the upcoming landings and main battle for the City
+function drunkRoll (roll){
+	let rollMultiplierTwo;
+	if (roll == 1) {
+		rollMultiplierTwo = 1.0;
+		alert("The Russian Army is sober, you might be in trouble!")
+	}
 
+	if (roll == 2) {
+		rollMultiplierTwo = 1.2;
+		alert("The Russian Army is hungover, your rolls will be amplified by 20%!")
+	}
+	if (roll == 3) {
+		rollMultiplierTwo = 1.3;
+		alert("The Russian Army got into the local rice wine stores, your rolls will be amplified by 30%!")
+	}
+	if (roll == 4) {
+		rollMultiplierTwo = 1.4;
+		alert("The Russian Army had some vodka delivered, they're in pretty bad shape, your rolls will be amplified by 40%!")
+	}
+	if (roll == 5) {
+		rollMultiplierTwo = 1.5;
+		alert("Charlie Sheen stopped by, The Russian Army has been given Tiger Blood, your rolls will be amplified by 50%!")
+	}
 
+	return rollMultiplierTwo;
+}
+
+	function landingRoll (roll){
+	console.log("landing Roll: " + roll);
+	if (roll >= 8){
+		alert("Your troops have landed successfully and are establishing a foothold!");
+		return true;
+	}
+	if (roll < 8){
+		alert("The Russians have repulsed your first landing, You've got one more chance!")
+		return false;
+	}
+}	
+
+	function landRoll (roll){
+		console.log("Land Battle Roll: " + roll);
+		if (roll >= 12){
+			alert("Your troops have successfully captured Port Arthur! Sweet victory bitch!")
+			return true;
+		}
+		if (roll < 12){
+			alert("The Russian Army has endured your assault, you wasted everybody's time!")
+			return false; 
+
+		}
+	}
 
 
 

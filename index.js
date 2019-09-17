@@ -47,7 +47,7 @@ function runGame() {
 	if (!landingRollVar){
 			landingRollVar = landingRoll((diceRoller(12,1) * drunk), "second");
 		if (!landingRollVar){
-			rungame();
+			runGame();
 			return;
 		}
 	}
@@ -163,7 +163,7 @@ function drunkRoll (roll){
 	}
 	if (roll == 5) {
 		rollMultiplierTwo = 1.5;
-		alert("Charlie Sheen stopped by, The Russian Army has been given Tiger Blood, your rolls will be amplified by 50%!")
+		alert("Charlie Sheen stopped by, The Russian Army has overdosed on Tiger Blood, your rolls will be amplified by 50%!")
 	}
 
 	return rollMultiplierTwo;
@@ -182,7 +182,7 @@ function drunkRoll (roll){
 		}
 
 		if (attempt === "second"){
-			alertMes += "You have failed and will be returned to the beginning"
+			alertMes += "   You have failed and will be returned to the beginning"
 		}
 		alert(alertMes);
 		return false;
@@ -191,16 +191,24 @@ function drunkRoll (roll){
 	// else if add rollOne and rollTwo
 }	
 	// this is the last stage of the game, the "land battle"
-	function landRoll (roll){
+	function landRoll (roll, attempt){
 		console.log("Land Battle Roll: " + roll);
 		if (roll >= 12){
 			alert("Your troops have successfully captured Port Arthur! Sweet victory bitch!")
 			return true;
 		}
-		if (roll < 12){
-			alert("The Russian Army has endured your assault, you wasted everybody's time! You will now be returned to the beginning")
-			return false; 
+		else {
+			let alertMes = "The Russians have repulsed your " + attempt + " assault.";
+			if (attempt === "first"){
+				alertMes += " You've got one more chance!"
+			}
 
+			if (attempt === "second"){
+				alertMes += "You have failed and will be returned to the beginning"
+			}
+			alert(alertMes);
+			return false; 
+			// alert("The Russian Army has endured your assault, you wasted everybody's time! You will now be returned to the beginning")
 		}
 	}
 

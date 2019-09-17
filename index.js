@@ -35,11 +35,24 @@ function runGame() {
 		runGame();
 		return;
 	}
-	console.log("Second Naval Roll: " + navalRollTwoVar)
+	console.log("Second Naval Roll: " + navalRollTwoVar);
+
+	alert("Your transports are preparing to begin their landing. The Russians- not expecting you to win at sea; may have partied a bit too hard last night")
 
 	// How Drunk is the Russian Army? multiplier
-	let drunk = drunkRoll(diceRoller(5,1))
-	console.log("Drunk Multipler: " + drunk)
+	let drunk = drunkRoll(diceRoller(5,1));
+	console.log("Drunk Multipler: " + drunk);
+	// Landing Roll
+	let landingRollVar = landingRoll((diceRoller(12,1) * drunk), (diceRoller(12,1) *drunk));
+	if (!landingRollVar){
+		runGame();
+		return;
+	}
+	let landRollVar = landRoll((diceRoller(20,1) * drunk));
+	if (!landRollVar){
+		runGame();
+		return;
+	}
 
 
 }
@@ -157,10 +170,12 @@ function drunkRoll (roll){
 		alert("Your troops have landed successfully and are establishing a foothold!");
 		return true;
 	}
-	if (roll < 8){
+	else {
 		alert("The Russians have repulsed your first landing, You've got one more chance!")
 		return false;
 	}
+
+	// else if add rollOne and rollTwo
 }	
 
 	function landRoll (roll){
@@ -170,7 +185,7 @@ function drunkRoll (roll){
 			return true;
 		}
 		if (roll < 12){
-			alert("The Russian Army has endured your assault, you wasted everybody's time!")
+			alert("The Russian Army has endured your assault, you wasted everybody's time! You will now be returned to the beginning")
 			return false; 
 
 		}

@@ -182,7 +182,7 @@ function drunkRoll (roll){
 		}
 
 		if (attempt === "second"){
-			alertMes += "   You have failed and will be returned to the beginning"
+			alertMes += " You have failed and will be returned to the beginning"
 		}
 		alert(alertMes);
 		return false;
@@ -204,7 +204,7 @@ function drunkRoll (roll){
 			}
 
 			if (attempt === "second"){
-				alertMes += "You have failed and will be returned to the beginning"
+				alertMes += " You have failed and will be returned to the beginning"
 			}
 			alert(alertMes);
 			return false; 
